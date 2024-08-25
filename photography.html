@@ -50,6 +50,9 @@
             background-color: rgba(0, 0, 0, 0.8);
             justify-content: center;
             align-items: center;
+            flex-direction: column;  /* 使图片和文字垂直排列 */
+            text-align: center;  /* 使文字居中 */
+            padding: 20px;
         }
         .lightbox img {
             max-width: 90%;
@@ -94,22 +97,70 @@
     <script>
         const galleryElement = document.getElementById('gallery');
         const images = [
-            'assets/images/photography/ISS_Jupiter_correct_satellite_name.PNG',
-            'assets/images/photography/IMG_3670.JPG',
-            'assets/images/photography/IMG_3671.jpg',
-            'assets/images/photography/IMG_9618.JPG',
-            'assets/images/photography/IMG_4483 2.JPG',
-            'assets/images/photography/C2020_F3_ligang.JPG',
-            'assets/images/photography/DSC_5885.JPG',
-            'assets/images/photography/perseid 2.JPG',
-            'assets/images/photography/0812四人合影.JPG',
-            'assets/images/photography/2021双子 红2 2.JPG',
-            'assets/images/photography/solar-eclipse-spectrum-timelapse.JPG',
-            'assets/images/photography/月落后星空 拷贝.JPG',
-            'assets/images/photography/TIMELAPSE_0197-已增强-NR.JPG',
-            'assets/images/photography/日食串串 拷贝.JPG',
-            'assets/images/photography/HDR日食日冕.JPG',
-            'assets/images/photography/流星景1 拷贝.JPG',
+            {
+            src: 'assets/images/photography/ISS_Jupiter_correct_satellite_name.PNG',
+                description: 'The international space station transited Jupiter.'
+            },
+            {
+            src: 'assets/images/photography/IMG_3670.JPG',
+                description: ''
+            },
+            {
+            src: 'assets/images/photography/IMG_3671.jpg',
+                description: ''
+            },
+            {
+            src: 'assets/images/photography/IMG_9618.JPG',
+                description: ''
+            },
+            {
+            src: 'assets/images/photography/IMG_4483 2.JPG',
+                description: ''
+            },
+            {
+            src: 'assets/images/photography/C2020_F3_ligang.JPG',
+                description: ''
+            },
+            {
+            src: 'assets/images/photography/DSC_5885.JPG',
+                description: ''
+            },
+            {
+            src: 'assets/images/photography/perseid 2.JPG',
+                description: ''
+            },
+            {
+            src: 'assets/images/photography/0812四人合影.JPG',
+                description: ''
+            },
+            {
+            src: 'assets/images/photography/2021双子 红2 2.JPG',
+                description: ''
+            },
+            {
+            src: 'assets/images/photography/solar-eclipse-spectrum-timelapse.JPG',
+                description: ''
+            },
+            {
+            src: 'assets/images/photography/月落后星空 拷贝.JPG',
+                description: ''
+            },
+            {
+            src: 'assets/images/photography/TIMELAPSE_0197-已增强-NR.JPG',
+                description: ''
+            },
+            {
+            src: 'assets/images/photography/日食串串 拷贝.JPG',
+                description: ''
+            },
+            {
+            src: 'assets/images/photography/HDR日食日冕.JPG',
+                description: ''
+            },
+            {
+            src: 'assets/images/photography/流星景1 拷贝.JPG',
+                description: ''
+            }
         ];
 
         images.forEach((imgSrc, index) => {
@@ -130,10 +181,15 @@
             lightboxAnchor.classList.add('lightbox-close');
             lightboxAnchor.innerHTML = '&times;';
             const lightboxImg = document.createElement('img');
-            lightboxImg.src = imgSrc;
+            lightboxImg.src = image.src;
             lightboxImg.alt = `Photo ${index + 1}`;
+            
+            const lightboxDescription = document.createElement('p');  // 新增的描述元素
+            lightboxDescription.textContent = image.description;  // 设置描述文字
+            
             lightboxDiv.appendChild(lightboxAnchor);
             lightboxDiv.appendChild(lightboxImg);
+            lightboxDiv.appendChild(lightboxDescription);  // 将描述添加到 Lightbox 中
             document.body.appendChild(lightboxDiv);
         });
     </script>
