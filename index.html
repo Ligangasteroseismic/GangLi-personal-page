@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
     <style>
+        /* 未访问的链接 */
+        a {
+            color: #007BFF; /* 蓝色 */
+            text-decoration: none; /* 去掉默认的下划线 */
+        }
+
+        /* 已访问的链接 */
+        a:visited {
+            color: #6F42C1; /* 自定义紫色 */
+        }
+
+        
         /* 全局样式 */
         body, html {
             margin: 0;
@@ -149,7 +161,7 @@
     <header class="hero">
         <div class="hero-content">
             <h1>Welcome to Gang Li's page</h1>
-            <p class="tagline"> <a href="https://ui.adsabs.harvard.edu/public-libraries/Os99jcJ7SzKd_JrdE0dtGg" target="_blank">Asteroseismology researcher</a> | <a href="photography.html" target="_blank">Astromony photographer | Scuba diver</a></p>
+            <p class="tagline"> Asteroseismology researcher | Astromony photographer | Scuba diver </p>
         </div>
     </header>
 
@@ -175,7 +187,7 @@
 
     <!-- 研究领域 -->
     <section class="section">
-        <div class="container">
+        <div class="container"  style="text-align: justify;">
             <h2>My Research</h2>
             <p> 
                 I am dedicated to probing the internal structure of stars using stellar oscillations, particularly focusing on measuring internal magnetic fields, rotation, and tidal interactions. 
