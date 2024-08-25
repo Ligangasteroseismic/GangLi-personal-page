@@ -68,52 +68,77 @@
             font-size: 2em;
             text-decoration: none;
         }
+        .back-to-home {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .back-to-home a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        .back-to-home a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-
         <div class="back-to-home">
             <a href="index.html">&larr; Back to Home</a>
         </div>
-        
         <h1>My Photography Portfolio</h1>
-        <div class="gallery">
-            <img src="assets/images/photography/ISS_Jupiter_correct_satellite_name.PNG" alt="Photo 1">
-            <img src="assets/images/photography/IMG_3670.JPG" alt="Photo 2">
-            <img src="assets/images/photography/IMG_3671.jpg" alt="Photo 3">
-            <img src="assets/images/photography/IMG_9618.JPG" alt="Photo 4">
-            <img src="assets/images/photography/IMG_4483 2.JPG" alt="Photo 5">
-            <img src="assets/images/photography/C2020_F3_ligang.JPG" alt="Photo 6">
-        </div>
-
-        <!-- Lightbox elements -->
-        <div id="img1" class="lightbox">
-            <a href="#" class="lightbox-close">&times;</a>
-            <img src="assets/images/photography/ISS_Jupiter_correct_satellite_name.PNG" alt="Photo 1">
-        </div>
-        <div id="img2" class="lightbox">
-            <a href="#" class="lightbox-close">&times;</a>
-            <img src="assets/images/photography/IMG_3670.JPG" alt="Photo 2">
-        </div>
-        <div id="img3" class="lightbox">
-            <a href="#" class="lightbox-close">&times;</a>
-            <img src="assets/images/photography/IMG_3671.jpg" alt="Photo 3">
-        </div>
-        <div id="img4" class="lightbox">
-            <a href="#" class="lightbox-close">&times;</a>
-            <img src="assets/images/photography/IMG_9618.JPG" alt="Photo 4">
-        </div>
-        <div id="img5" class="lightbox">
-            <a href="#" class="lightbox-close">&times;</a>
-            <img src="assets/images/photography/IMG_4483 2.JPG" alt="Photo 5">
-        </div>
-        <div id="img6" class="lightbox">
-            <a href="#" class="lightbox-close">&times;</a>
-            <img src="assets/images/photography/C2020_F3_ligang.JPG" alt="Photo 6">
-        </div>
-
-        
+        <div class="gallery" id="gallery"></div>
     </div>
+
+    <script>
+        const galleryElement = document.getElementById('gallery');
+        const numberOfImages = 16; // Replace with the actual number of images you have
+        const imageFolderPath = 'assets/images/photography/';
+        const extensions = ['jpg', 'jpeg', 'png', 'JPG', 'JPEG', 'PNG'];
+
+        function findImageFile(imageBaseName) {
+            for (let ext of extensions) {
+                let imgSrc = `${imageFolderPath}${imageBaseName}.${ext}`;
+                let http = new XMLHttpRequest();
+                http.open('HEAD', imgSrc, false);
+                http.send();
+                if (http.status != 404) {
+                    return imgSrc;
+                }
+            }
+            return null;
+        }
+
+        for (let i = 1; i <= numberOfImages; i++) {
+            let imgSrc = findImageFile(`photo${i}`);
+            if (imgSrc) {
+                const anchor = document.createElement('a');
+                anchor.href = `#img${i}`;
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                img.alt = `Photo ${i}`;
+                anchor.appendChild(img);
+                galleryElement.appendChild(anchor);
+
+                // Create Lightbox
+                const lightboxDiv = document.createElement('div');
+                lightboxDiv.id = `img${i}`;
+                lightboxDiv.classList.add('lightbox');
+                const lightboxAnchor = document.createElement('a');
+                lightboxAnchor.href = '#';
+                lightboxAnchor.classList.add('lightbox-close');
+                lightboxAnchor.innerHTML = '&times;';
+                const lightboxImg = document.createElement('img');
+                lightboxImg.src = imgSrc;
+                lightboxImg.alt = `Photo ${i}`;
+                lightboxDiv.appendChild(lightboxAnchor);
+                lightboxDiv.appendChild(lightboxImg);
+                document.body.appendChild(lightboxDiv);
+            } else {
+                console.warn(`Image file for photo${i} not found.`);
+            }
+        }
+    </script>
 </body>
 </html>
