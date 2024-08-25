@@ -5,16 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
     <style>
+        /* 全局样式 */
         body, html {
             margin: 0;
             padding: 0;
-            height: 100%;
+            font-family: 'Arial', sans-serif;
+            color: #333;
         }
-        body {
-            font-family: Arial, sans-serif;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* 头部样式 */
         .hero {
-            background-image: url('assets/images/solar_eclipse_title_background.JPG'); /* 将your-image.jpg替换为你的图片路径 */
+            background-image: url('assets/images/solar_eclipse_title_background.JPG'); /* 替换为你的图片路径 */
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -32,7 +46,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* 调整透明度 */
+            background-color: rgba(0, 0, 0, 0.5);
             z-index: 1;
         }
         .hero-content {
@@ -42,14 +56,145 @@
             font-size: 4em;
             margin: 0;
         }
+        .tagline {
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+
+        /* 内容部分 */
+        .section {
+            padding: 60px 20px;
+            background-color: #f4f4f4;
+        }
+        .section:nth-child(even) {
+            background-color: #ffffff;
+        }
+
+        .profile-image {
+            float: left;
+            margin-right: 20px;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        /* 栅格布局 */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -10px;
+        }
+        .column {
+            flex: 1;
+            padding: 10px;
+            min-width: 300px;
+        }
+
+        /* 联系方式 */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .contact-form button {
+            padding: 10px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .contact-form button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
+
+    <!-- 头部部分 -->
     <header class="hero">
         <div class="hero-content">
-            <h1>Welcome to My Portfolio</h1>
-            <p>Your tagline or brief description here</p>
+            <h1>Your Name</h1>
+            <p class="tagline">Aspiring Developer | Designer | Problem Solver</p>
         </div>
     </header>
+
+    <!-- 个人简介部分 -->
+    <section class="section">
+        <div class="container">
+            <h2>About Me</h2>
+            <img src="assets/images/your-profile-image.jpg" alt="Profile Image" class="profile-image"> <!-- 替换为你的头像 -->
+            <p>Hello! I'm <strong>Your Name</strong>, a passionate developer and designer with a keen interest in solving complex problems through technology. With a background in [Your Education Background], I have developed strong skills in [Key Skills]. My goal is to leverage my knowledge and creativity to build solutions that make a difference.</p>
+            <p>Over the years, I have worked on various projects that span across web development, UI/UX design, and software engineering. I am constantly learning new technologies and improving my skills to stay ahead in this ever-evolving industry.</p>
+        </div>
+    </section>
+
+    <!-- 技能部分 -->
+    <section class="section">
+        <div class="container">
+            <h2>My Skills</h2>
+            <div class="row">
+                <div class="column">
+                    <h3>Web Development</h3>
+                    <p>Proficient in HTML, CSS, JavaScript, and various web development frameworks such as React and Angular.</p>
+                </div>
+                <div class="column">
+                    <h3>UI/UX Design</h3>
+                    <p>Experienced in creating user-friendly interfaces and enhancing user experiences with tools like Figma and Adobe XD.</p>
+                </div>
+                <div class="column">
+                    <h3>Software Engineering</h3>
+                    <p>Strong foundation in software development principles, including object-oriented programming and version control with Git.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目展示部分 -->
+    <section class="section">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="row">
+                <div class="column">
+                    <h3>Project One</h3>
+                    <p>A brief description of a project. Highlight the key features, technologies used, and the problem it solves.</p>
+                </div>
+                <div class="column">
+                    <h3>Project Two</h3>
+                    <p>A brief description of another project. Include what you learned and any challenges you overcame.</p>
+                </div>
+                <div class="column">
+                    <h3>Project Three</h3>
+                    <p>A brief description of a third project. You can also include a link to the live project or its repository on GitHub.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式部分 -->
+    <section class="section">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <p>If you are interested in working with me or just want to say hi, feel free to send me a message!</p>
+            <form class="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
 </body>
 </html>
