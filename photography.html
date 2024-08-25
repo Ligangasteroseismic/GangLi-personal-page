@@ -50,8 +50,8 @@
             background-color: rgba(0, 0, 0, 0.8);
             justify-content: center;
             align-items: center;
-            flex-direction: column;  /* 使图片和文字垂直排列 */
-            text-align: center;  /* 使文字居中 */
+            flex-direction: column;
+            text-align: center;
             padding: 20px;
         }
         .lightbox img {
@@ -59,6 +59,7 @@
             max-height: 80%;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             border-radius: 10px;
+            margin-bottom: 20px;
         }
         .lightbox:target {
             display: flex;
@@ -71,6 +72,11 @@
             font-size: 2em;
             text-decoration: none;
         }
+        .lightbox p {
+            color: white;
+            font-size: 1.2em;
+            margin: 0;
+        }
         .back-to-home {
             text-align: center;
             margin-bottom: 20px;
@@ -82,6 +88,24 @@
         }
         .back-to-home a:hover {
             text-decoration: underline;
+        }
+
+        /* Arrow buttons */
+        .lightbox .prev, .lightbox .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 2em;
+            padding: 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .lightbox .prev {
+            left: 20px;
+        }
+        .lightbox .next {
+            right: 20px;
         }
     </style>
 </head>
@@ -163,35 +187,74 @@
             }
         ];
 
-        images.forEach((imgSrc, index) => {
+        let currentIndex = 0;
+
+        function showImage(index) {
+            const lightboxDiv = document.getElementById('lightbox');
+            const lightboxImg = lightboxDiv.querySelector('img');
+            const lightboxDescription = lightboxDiv.querySelector('p');
+            lightboxImg.src = images[index].src;
+            lightboxDescription.textContent = images[index].description;
+            currentIndex = index;
+        }
+
+        images.forEach((image, index) => {
             const anchor = document.createElement('a');
-            anchor.href = `#img${index}`;
+            anchor.href = `#lightbox`;
             const img = document.createElement('img');
-            img.src = imgSrc;
+            img.src = image.src;
             img.alt = `Photo ${index + 1}`;
             anchor.appendChild(img);
             galleryElement.appendChild(anchor);
 
-            // Create Lightbox
-            const lightboxDiv = document.createElement('div');
-            lightboxDiv.id = `img${index}`;
-            lightboxDiv.classList.add('lightbox');
-            const lightboxAnchor = document.createElement('a');
-            lightboxAnchor.href = '#';
-            lightboxAnchor.classList.add('lightbox-close');
-            lightboxAnchor.innerHTML = '&times;';
-            const lightboxImg = document.createElement('img');
-            lightboxImg.src = image.src;
-            lightboxImg.alt = `Photo ${index + 1}`;
-            
-            const lightboxDescription = document.createElement('p');  // 新增的描述元素
-            lightboxDescription.textContent = image.description;  // 设置描述文字
-            
-            lightboxDiv.appendChild(lightboxAnchor);
-            lightboxDiv.appendChild(lightboxImg);
-            lightboxDiv.appendChild(lightboxDescription);  // 将描述添加到 Lightbox 中
-            document.body.appendChild(lightboxDiv);
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                showImage(index);
+            });
         });
+
+        // Create Lightbox
+        const lightboxDiv = document.createElement('div');
+        lightboxDiv.id = 'lightbox';
+        lightboxDiv.classList.add('lightbox');
+        const lightboxAnchor = document.createElement('a');
+        lightboxAnchor.href = '#';
+        lightboxAnchor.classList.add('lightbox-close');
+        lightboxAnchor.innerHTML = '&times;';
+        const lightboxImg = document.createElement('img');
+        const lightboxDescription = document.createElement('p');
+        const prevButton = document.createElement('a');
+        prevButton.classList.add('prev');
+        prevButton.innerHTML = '&#10094;';
+        prevButton.href = '#';
+        prevButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentIndex > 0) {
+                showImage(currentIndex - 1);
+            } else {
+                showImage(images.length - 1);  // Loop back to last image
+            }
+        });
+
+        const nextButton = document.createElement('a');
+        nextButton.classList.add('next');
+        nextButton.innerHTML = '&#10095;';
+        nextButton.href = '#';
+        nextButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentIndex < images.length - 1) {
+                showImage(currentIndex + 1);
+            } else {
+                showImage(0);  // Loop back to first image
+            }
+        });
+
+        lightboxDiv.appendChild(lightboxAnchor);
+        lightboxDiv.appendChild(prevButton);
+        lightboxDiv.appendChild(lightboxImg);
+        lightboxDiv.appendChild(nextButton);
+        lightboxDiv.appendChild(lightboxDescription);
+        document.body.appendChild(lightboxDiv);
     </script>
 </body>
 </html>
