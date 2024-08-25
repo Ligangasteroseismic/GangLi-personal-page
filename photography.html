@@ -66,8 +66,8 @@
         }
         .lightbox-close {
             position: absolute;
-            top: 20px;
-            right: 30px;
+            top: 40px;
+            right: 50px;
             color: white;
             font-size: 2em;
             text-decoration: none;
@@ -100,15 +100,22 @@
             padding: 10px;
             cursor: pointer;
             text-decoration: none;
+            background-color: rgba(0, 0, 0, 0.5); /* 背景色确保按钮在图片上可见 */
+            border-radius: 50%;
+            z-index: 1001; /* 确保按钮位于其他元素之上 */
         }
+        
         .lightbox .prev {
-            left: 20px;
+            left: 20px; /* 调整左箭头的位置，使其保持在屏幕内 */
         }
+        
         .lightbox .next {
-            right: 20px;
+            right: 40px; /* 调整右箭头的位置，使其保持在屏幕内 */
         }
     </style>
 </head>
+
+    
 <body>
     <div class="container">
         <div class="back-to-home">
