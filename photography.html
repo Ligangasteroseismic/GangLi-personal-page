@@ -93,52 +93,49 @@
 
     <script>
         const galleryElement = document.getElementById('gallery');
-        const numberOfImages = 16; // Replace with the actual number of images you have
-        const imageFolderPath = 'assets/images/photography/';
-        const extensions = ['jpg', 'jpeg', 'png', 'JPG', 'JPEG', 'PNG'];
+        const images = [
+            'assets/images/photography/ISS_Jupiter_correct_satellite_name.PNG',
+            'assets/images/photography/IMG_3670.JPG',
+            'assets/images/photography/IMG_3671.jpg',
+            'assets/images/photography/IMG_9618.JPG',
+            'assets/images/photography/IMG_4483 2.JPG',
+            'assets/images/photography/C2020_F3_ligang.JPG',
+            'assets/images/photography/DSC_5885.JPG',
+            'assets/images/photography/perseid 2.JPG',
+            'assets/images/photography/0812四人合影.JPG',
+            'assets/images/photography/2021双子 红2 2.JPG',
+            'assets/images/photography/solar-eclipse-spectrum-timelapse.JPG',
+            'assets/images/photography/月落后星空 拷贝.JPG',
+            'assets/images/photography/TIMELAPSE_0197-已增强-NR.JPG',
+            'assets/images/photography/日食串串 拷贝.JPG',
+            'assets/images/photography/HDR日食日冕.JPG',
+            'assets/images/photography/流星景1 拷贝.JPG',
+        ];
 
-        function findImageFile(imageBaseName) {
-            for (let ext of extensions) {
-                let imgSrc = `${imageFolderPath}${imageBaseName}.${ext}`;
-                let http = new XMLHttpRequest();
-                http.open('HEAD', imgSrc, false);
-                http.send();
-                if (http.status != 404) {
-                    return imgSrc;
-                }
-            }
-            return null;
-        }
+        images.forEach((imgSrc, index) => {
+            const anchor = document.createElement('a');
+            anchor.href = `#img${index}`;
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.alt = `Photo ${index + 1}`;
+            anchor.appendChild(img);
+            galleryElement.appendChild(anchor);
 
-        for (let i = 1; i <= numberOfImages; i++) {
-            let imgSrc = findImageFile(`photo${i}`);
-            if (imgSrc) {
-                const anchor = document.createElement('a');
-                anchor.href = `#img${i}`;
-                const img = document.createElement('img');
-                img.src = imgSrc;
-                img.alt = `Photo ${i}`;
-                anchor.appendChild(img);
-                galleryElement.appendChild(anchor);
-
-                // Create Lightbox
-                const lightboxDiv = document.createElement('div');
-                lightboxDiv.id = `img${i}`;
-                lightboxDiv.classList.add('lightbox');
-                const lightboxAnchor = document.createElement('a');
-                lightboxAnchor.href = '#';
-                lightboxAnchor.classList.add('lightbox-close');
-                lightboxAnchor.innerHTML = '&times;';
-                const lightboxImg = document.createElement('img');
-                lightboxImg.src = imgSrc;
-                lightboxImg.alt = `Photo ${i}`;
-                lightboxDiv.appendChild(lightboxAnchor);
-                lightboxDiv.appendChild(lightboxImg);
-                document.body.appendChild(lightboxDiv);
-            } else {
-                console.warn(`Image file for photo${i} not found.`);
-            }
-        }
+            // Create Lightbox
+            const lightboxDiv = document.createElement('div');
+            lightboxDiv.id = `img${index}`;
+            lightboxDiv.classList.add('lightbox');
+            const lightboxAnchor = document.createElement('a');
+            lightboxAnchor.href = '#';
+            lightboxAnchor.classList.add('lightbox-close');
+            lightboxAnchor.innerHTML = '&times;';
+            const lightboxImg = document.createElement('img');
+            lightboxImg.src = imgSrc;
+            lightboxImg.alt = `Photo ${index + 1}`;
+            lightboxDiv.appendChild(lightboxAnchor);
+            lightboxDiv.appendChild(lightboxImg);
+            document.body.appendChild(lightboxDiv);
+        });
     </script>
 </body>
 </html>
